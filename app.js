@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const passport = require("passport");
+const driveRouter = require("./router/driveRouter");
 
 const app = express();
 
@@ -11,10 +12,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
+app.use("/", driveRouter);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Running on ${PORT}`);
