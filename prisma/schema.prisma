@@ -36,4 +36,13 @@ model Folder {
   child     Folder[] @relation("FolderToFolder")
   user_id   Int
   user      User     @relation(fields: [user_id], references: [id])
+  file      File[]
+}
+
+model File {
+  id         String   @id @default(uuid())
+  name       String
+  uploadedAt DateTime @default(now())
+  folder_id  Int
+  folder     Folder   @relation(fields: [folder_id], references: [id])
 }
