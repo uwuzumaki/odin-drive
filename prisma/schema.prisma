@@ -22,9 +22,10 @@ model Session {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique
+  id       Int      @id @default(autoincrement())
+  username String   @unique
   password String
+  folders  Folder[]
 }
 
 model Folder {
@@ -33,4 +34,6 @@ model Folder {
   parent_id Int?
   parent    Folder?  @relation("FolderToFolder", fields: [parent_id], references: [id])
   child     Folder[] @relation("FolderToFolder")
+  user_id   Int
+  user      User     @relation(fields: [user_id], references: [id])
 }
