@@ -8,5 +8,6 @@ driveRouter.get("/", driveController.index);
 driveRouter.get("/register", driveController.registerGet);
 driveRouter.get("/login", driveController.loginGet);
 driveRouter.post("/register", registration, driveController.registerPost);
+driveRouter.post("/login", driveController.loginPost);
 
 module.exports = driveRouter;

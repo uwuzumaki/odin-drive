@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const passport = require("passport");
 const driveRouter = require("./router/driveRouter");
+const session = require("./session/session");
 
 const app = express();
 
@@ -12,7 +13,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(session());
+app.use(passport.session());
+require("./passport/passport");
+app.use((req, res, next) => {
+  res.locals.loggedIn = req.isAuthenticated();
+  res.locals.user = req.session.passport ? req.user.id : null;
+  next();
+});
+
 app.use("/", driveRouter);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Running on ${PORT}`);
