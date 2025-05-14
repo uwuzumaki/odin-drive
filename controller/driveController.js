@@ -4,7 +4,8 @@ const db = require("../db/queries");
 const passport = require("passport");
 
 const index = (req, res) => {
-  res.render("index");
+  console.log(req.user);
+  res.render("index", { locals: res.locals });
 };
 
 const registerGet = (req, res) => {
@@ -35,10 +36,22 @@ const loginPost = passport.authenticate("local", {
   failureRedirect: "/login",
 });
 
+const logout = (req, res, next) => {
+  req.logout((error) => {
+    if (error) return next(error);
+    req.session.destroy((error) => {
+      if (error) return next(error);
+      res.clearCookie("connect.sid");
+      res.redirect("/");
+    });
+  });
+};
+
 module.exports = {
   index,
   registerGet,
   loginGet,
   registerPost,
   loginPost,
+  logout,
 };
