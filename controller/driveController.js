@@ -47,6 +47,10 @@ const logout = (req, res, next) => {
   });
 };
 
+const uploadPost = (req, res) => {
+  res.redirect("/");
+};
+
 module.exports = {
   index,
   registerGet,
@@ -54,4 +58,5 @@ module.exports = {
   registerPost,
   loginPost,
   logout,
+  uploadPost,
 };
