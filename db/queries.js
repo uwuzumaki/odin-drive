@@ -30,8 +30,30 @@ const getUserById = async (id) => {
   return user;
 };
 
+const newFolder = async (user_id, parent_id) => {
+  const folder = await prisma.folder.create({
+    data: {
+      user_id,
+      parent_id,
+    },
+  });
+  return folder;
+};
+
+const getCurrentFolders = async (user_id, parent_id) => {
+  const currentFolders = await prisma.folder.findMany({
+    where: {
+      user_id,
+      parent_id,
+    },
+  });
+  return currentFolders;
+};
+
 module.exports = {
   newUser,
   getUser: getUserByUsername,
   getUserById,
+  newFolder,
+  getCurrentFolders,
 };
