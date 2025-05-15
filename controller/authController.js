@@ -5,7 +5,7 @@ const passport = require("passport");
 
 const index = (req, res) => {
   if (req.user) {
-    res.redirect(`/user/${req.user.id}`);
+    res.redirect(`/user`);
   } else {
     res.render("index", { locals: res.locals });
   }
