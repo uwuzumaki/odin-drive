@@ -4,8 +4,11 @@ const db = require("../db/queries");
 const passport = require("passport");
 
 const index = (req, res) => {
-  console.log(req.user);
-  res.render("index", { locals: res.locals });
+  if (req.user) {
+    res.redirect(`/user/${req.user.id}`);
+  } else {
+    res.render("index", { locals: res.locals });
+  }
 };
 
 const registerGet = (req, res) => {
@@ -47,10 +50,6 @@ const logout = (req, res, next) => {
   });
 };
 
-const uploadPost = (req, res) => {
-  res.redirect("/");
-};
-
 module.exports = {
   index,
   registerGet,
@@ -58,5 +57,4 @@ module.exports = {
   registerPost,
   loginPost,
   logout,
-  uploadPost,
 };

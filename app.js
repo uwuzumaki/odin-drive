@@ -1,7 +1,8 @@
 const path = require("path");
 const express = require("express");
 const passport = require("passport");
-const driveRouter = require("./router/driveRouter");
+const authRouter = require("./router/authRouter");
+const userRouter = require("./router/userRouter");
 const session = require("./session/session");
 
 const app = express();
@@ -22,7 +23,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", driveRouter);
+app.use("/", authRouter);
+app.use("/user", userRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
