@@ -30,7 +30,8 @@ model User {
 
 model Folder {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @default("New Folder")
+  createdAt DateTime @default(now())
   parent_id Int?
   parent    Folder?  @relation("FolderToFolder", fields: [parent_id], references: [id])
   child     Folder[] @relation("FolderToFolder")
