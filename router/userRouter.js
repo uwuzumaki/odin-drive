@@ -4,7 +4,8 @@ const userController = require("../controller/userController");
 
 const userRouter = Router();
 
-userRouter.get("/:id", userController.userHome);
+userRouter.get("/", userController.userHome);
 userRouter.post("/upload", upload.single("image"), userController.uploadPost);
+userRouter.get("/newfolder", userController.newFolder);
 
 module.exports = userRouter;
