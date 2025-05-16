@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User</title>
-  </head>
+  <%- include("./partials/head.ejs") %>
   <body>
     <a href="/logout">Logout</a>
     <%- include("./partials/upload") %>
+    <a href="/user/newfolder">New folder</a>
+    <%- include("./partials/folders.ejs", {folders: folders}) %>
+    <!--  prettier-ignore -->
+    <%- include('./partials/footer.ejs') %>
   </body>
 </html>
