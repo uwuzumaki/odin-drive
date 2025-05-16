@@ -35,7 +35,7 @@ const loginGet = (req, res) => {
 };
 
 const loginPost = passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/user",
   failureRedirect: "/login",
 });
 
