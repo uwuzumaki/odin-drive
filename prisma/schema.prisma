@@ -38,6 +38,7 @@ model Folder {
   user_id   Int
   user      User     @relation(fields: [user_id], references: [id])
   file      File[]
+  root      Boolean  @default(false)
 }
 
 model File {

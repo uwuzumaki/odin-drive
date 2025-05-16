@@ -9,6 +9,12 @@ const newUser = async (username, password) => {
       password: password,
     },
   });
+  const rootFolder = await prisma.folder.create({
+    data: {
+      user_id: user.id,
+      root: true,
+    },
+  });
   return user;
 };
 
