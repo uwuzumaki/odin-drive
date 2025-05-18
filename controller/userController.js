@@ -1,8 +1,13 @@
 const db = require("../db/queries");
 
-const userHome = (req, res) => {
+const userHome = async (req, res) => {
   const user = req.user;
-  res.render("user");
+  const rootFolder = await db.getRootFolder(user.id);
+  req.session.rootFolder = rootFolder;
+  req.session.parentFolder = rootFolder;
+  const currentFolders = await db.getCurrentFolders(user.id, rootFolder.id);
+  console.log("home", req.session.parentFolder);
+  res.render("user", { folders: currentFolders });
 };
 
 const uploadPost = (req, res) => {
@@ -10,19 +15,24 @@ const uploadPost = (req, res) => {
 };
 
 const newFolder = async (req, res) => {
-  const parent_id = req.hasOwnProperty("parent") ? req.parent.id : null;
-  const newFolder = await db.newFolder(req.user.id, parent_id);
-  req.parent = newFolder;
-  const currentFolders = await db.getCurrentFolders(
-    req.user.id,
-    req.parent.parent_id,
-  );
-  console.log(currentFolders);
-  res.render("test", { folders: currentFolders });
+  const parent_id = req.session.parentFolder.id;
+  const user_id = req.user.id;
+  await db.newFolder(user_id, parent_id);
+  // const currentFolders = await db.getCurrentFolders(user_id, parent_id);
+  res.redirect(`/user/folder/${parent_id}`);
+};
+
+const selectFolder = async (req, res) => {
+  const folder_id = req.params.id;
+  const parentFolder = await db.getOneFolder(folder_id);
+  req.session.parentFolder = parentFolder[0];
+  const currentFolders = await db.getCurrentFolders(req.user.id, req.params.id);
+  res.render("user", { folders: currentFolders });
 };
 
 module.exports = {
   userHome,
   uploadPost,
   newFolder,
+  selectFolder,
 };
