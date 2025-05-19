@@ -67,14 +67,17 @@ const getOneFolder = async (id) => {
 };
 
 const getCurrentFolders = async (user_id, parent_id) => {
-  const id = typeof parent_id == "string" ? parseInt(parent_id) : parent_id;
-  const currentFolders = await prisma.folder.findMany({
-    where: {
-      user_id,
-      parent_id: id,
-      root: false,
-    },
-  });
+  let currentFolders;
+  if (parent_id) {
+    currentFolders = await prisma.folder.findMany({
+      where: {
+        user_id,
+        parent_id,
+      },
+    });
+  } else {
+    currentFolders = await getRootFolder(user_id);
+  }
   return currentFolders;
 };
 
