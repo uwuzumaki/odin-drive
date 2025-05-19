@@ -7,5 +7,6 @@ const userRouter = Router();
 userRouter.get("/", userController.userHome);
 userRouter.post("/upload", upload.single("image"), userController.uploadPost);
 userRouter.get("/newfolder", userController.newFolder);
+userRouter.get("/folder/:id", userController.selectFolder);
 
 module.exports = userRouter;
