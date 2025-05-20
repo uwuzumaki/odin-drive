@@ -1,4 +1,5 @@
 const db = require("../db/queries");
+const byteSize = require("byte-size");
 
 const userHome = async (req, res) => {
   const user = req.user;
@@ -45,7 +46,19 @@ const backFolder = async (req, res) => {
 };
 
 const fileDetails = async (req, res) => {
-  console.log("123");
+  console.log(req.params.file_id);
+  console.log(req.params.folder_id);
+  const file = await db.getFileDetails(req.params.file_id);
+  const sizeByte = {
+    value: byteSize(file.size).value,
+    unit: byteSize(file.size).unit,
+  };
+  file.size = sizeByte;
+  res.render("user", {
+    folders: null,
+    file: file,
+    folder_id: req.params.folder_id,
+  });
 };
 
 module.exports = {

@@ -100,6 +100,15 @@ const getCurrentFiles = async (folder_id) => {
   return files;
 };
 
+const getFileDetails = async (file_id) => {
+  const file = await prisma.file.findUnique({
+    where: {
+      id: file_id,
+    },
+  });
+  return file;
+};
+
 module.exports = {
   newUser,
   getUser: getUserByUsername,
@@ -110,4 +119,5 @@ module.exports = {
   getCurrentFolders,
   newFile,
   getCurrentFiles,
+  getFileDetails,
 };
