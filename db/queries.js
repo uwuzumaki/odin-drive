@@ -43,7 +43,8 @@ const getRootFolder = async (id) => {
       root: true,
     },
   });
-  return folder;
+  console.log(folder);
+  return folder[0];
 };
 
 const newFolder = async (user_id, parent_id) => {
@@ -63,7 +64,8 @@ const getOneFolder = async (id) => {
       id: folder_id,
     },
   });
-  return folder;
+  console.log(folder);
+  return folder[0];
 };
 
 const getCurrentFolders = async (user_id, parent_id) => {
@@ -81,6 +83,16 @@ const getCurrentFolders = async (user_id, parent_id) => {
   return currentFolders;
 };
 
+const newFile = async (filename, size, folder_id) => {
+  const record = await prisma.file.create({
+    data: {
+      name: filename,
+      size,
+      folder_id,
+    },
+  });
+};
+
 module.exports = {
   newUser,
   getUser: getUserByUsername,
@@ -89,4 +101,5 @@ module.exports = {
   newFolder,
   getOneFolder,
   getCurrentFolders,
+  newFile,
 };

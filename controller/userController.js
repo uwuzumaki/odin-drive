@@ -9,8 +9,13 @@ const userHome = async (req, res) => {
   res.render("user", { folders: currentFolders });
 };
 
-const uploadPost = (req, res) => {
-  res.redirect("/");
+const uploadPost = async (req, res) => {
+  await db.newFile(
+    req.file.filename,
+    req.file.size,
+    req.session.parentFolder.id,
+  );
+  res.redirect(`/user/folder/${req.session.parentFolder.id}`);
 };
 
 const newFolder = async (req, res) => {
@@ -22,15 +27,13 @@ const newFolder = async (req, res) => {
 
 const selectFolder = async (req, res) => {
   const folder_id = parseInt(req.params.id);
-  console.log(folder_id);
   const parentFolder = await db.getOneFolder(folder_id);
-  req.session.parentFolder = parentFolder[0];
+  req.session.parentFolder = parentFolder;
   const currentFolders = await db.getCurrentFolders(req.user.id, folder_id);
   res.render("user", { folders: currentFolders });
 };
 
 const backFolder = async (req, res) => {
-  console.log(req.session.parentFolder);
   const parent_id = req.session.parentFolder.parent_id;
   if (parent_id) {
     res.redirect(`/user/folder/${parent_id}`);
