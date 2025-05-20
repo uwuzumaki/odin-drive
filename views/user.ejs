@@ -6,8 +6,13 @@
     <%- include("./partials/upload") %>
     <a href="/user/newfolder">New folder</a>
     <a href="/user/back">Back</a>
-    <%- include("./partials/folders.ejs", {folders: folders}) %>
-    <!--  prettier-ignore -->
+    <div class="container mx-auto flex justify-evenly">
+      <%- include("./partials/folders.ejs", {folders: folders}) %>
+      <!--  prettier-ignore -->
+      <% if (files) { %>
+        <%- include("./partials/files.ejs", {folders: folders, files: files}) %>
+      <% } %>
+    </div>
     <%- include('./partials/footer.ejs') %>
   </body>
 </html>
