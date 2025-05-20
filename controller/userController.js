@@ -46,8 +46,6 @@ const backFolder = async (req, res) => {
 };
 
 const fileDetails = async (req, res) => {
-  console.log(req.params.file_id);
-  console.log(req.params.folder_id);
   const file = await db.getFileDetails(req.params.file_id);
   const sizeByte = {
     value: byteSize(file.size).value,
