@@ -6,7 +6,8 @@ const userHome = async (req, res) => {
   req.session.rootFolder = rootFolder;
   req.session.parentFolder = rootFolder;
   const currentFolders = await db.getCurrentFolders(user.id, rootFolder.id);
-  res.render("user", { folders: currentFolders });
+  const currentFiles = await db.getCurrentFiles(rootFolder.id);
+  res.render("user", { folders: currentFolders, files: currentFiles });
 };
 
 const uploadPost = async (req, res) => {
@@ -30,7 +31,8 @@ const selectFolder = async (req, res) => {
   const parentFolder = await db.getOneFolder(folder_id);
   req.session.parentFolder = parentFolder;
   const currentFolders = await db.getCurrentFolders(req.user.id, folder_id);
-  res.render("user", { folders: currentFolders });
+  const currentFiles = await db.getCurrentFiles(parentFolder.id);
+  res.render("user", { folders: currentFolders, files: currentFiles });
 };
 
 const backFolder = async (req, res) => {
@@ -42,10 +44,15 @@ const backFolder = async (req, res) => {
   }
 };
 
+const fileDetails = async (req, res) => {
+  console.log("123");
+};
+
 module.exports = {
   userHome,
   uploadPost,
   newFolder,
   selectFolder,
   backFolder,
+  fileDetails,
 };

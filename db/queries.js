@@ -43,7 +43,6 @@ const getRootFolder = async (id) => {
       root: true,
     },
   });
-  console.log(folder);
   return folder[0];
 };
 
@@ -64,7 +63,6 @@ const getOneFolder = async (id) => {
       id: folder_id,
     },
   });
-  console.log(folder);
   return folder[0];
 };
 
@@ -93,6 +91,15 @@ const newFile = async (filename, size, folder_id) => {
   });
 };
 
+const getCurrentFiles = async (folder_id) => {
+  const files = await prisma.file.findMany({
+    where: {
+      folder_id,
+    },
+  });
+  return files;
+};
+
 module.exports = {
   newUser,
   getUser: getUserByUsername,
@@ -102,4 +109,5 @@ module.exports = {
   getOneFolder,
   getCurrentFolders,
   newFile,
+  getCurrentFiles,
 };
