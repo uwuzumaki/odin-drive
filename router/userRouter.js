@@ -13,5 +13,9 @@ userRouter.get(
   "/folder/:folder_id/:file_id/details",
   userController.fileDetails,
 );
+userRouter.get("/file/download", userController.fileDownload);
+userRouter.get("/:file_id/rename", userController.renameGet);
+userRouter.post("/:file_id/rename", userController.renamePost);
+userRouter.get("/delete", userController.deleteAsset);
 
 module.exports = userRouter;
