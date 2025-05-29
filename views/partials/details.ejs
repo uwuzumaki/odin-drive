@@ -1,5 +1,8 @@
 <a href="/user/folder/<%= folder_id %>">Back</a>
 <div>
   <%= file.name %> <%= file.uploadedAt %> <%= file.size.value %> <%=
-  file.size.unit %>
+  file.size.unit %> <% console.log(file.id); %>
+  <a href="/user/download">Download</a>
+  <a href="/user/<%= file.id %>/rename">Rename</a>
+  <a href="/user/delete">Delete</a>
 </div>
