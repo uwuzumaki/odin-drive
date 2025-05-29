@@ -59,6 +59,23 @@ const fileDetails = async (req, res) => {
   });
 };
 
+const fileDownload = async (req, res) => {
+  console.log("123");
+};
+
+const renameGet = async (req, res) => {
+  const file = await db.getFileDetails(req.params.file_id);
+  res.render("renameGet", { file: file });
+};
+
+const renamePost = async (req, res) => {
+  console.log(req.body);
+};
+
+const deleteAsset = async (req, res) => {
+  console.log("456");
+};
+
 module.exports = {
   userHome,
   uploadPost,
@@ -66,4 +83,8 @@ module.exports = {
   selectFolder,
   backFolder,
   fileDetails,
+  fileDownload,
+  renameGet,
+  deleteAsset,
+  renamePost,
 };
