@@ -109,6 +109,17 @@ const getFileDetails = async (file_id) => {
   return file;
 };
 
+const changeFileName = async (file_id, newFileName) => {
+  await prisma.file.update({
+    where: {
+      id: file_id,
+    },
+    data: {
+      name: newFileName,
+    },
+  });
+};
+
 module.exports = {
   newUser,
   getUser: getUserByUsername,
@@ -120,4 +131,5 @@ module.exports = {
   newFile,
   getCurrentFiles,
   getFileDetails,
+  changeFileName,
 };

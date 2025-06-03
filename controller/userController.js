@@ -70,6 +70,11 @@ const renameGet = async (req, res) => {
 
 const renamePost = async (req, res) => {
   console.log(req.body);
+  const newFilename = req.body.filename;
+  const folder = req.body.folder_id;
+  const fileId = req.body.file_id;
+  await db.changeFileName(fileId, newFilename);
+  res.redirect(`/user/folder/${folder}/${fileId}/details`);
 };
 
 const deleteAsset = async (req, res) => {
