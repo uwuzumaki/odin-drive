@@ -4,5 +4,10 @@
   file.size.unit %> <% console.log(file.id); %>
   <a href="/user/download">Download</a>
   <a href="/user/<%= file.id %>/rename">Rename</a>
-  <a href="/user/delete">Delete</a>
+  <form method="POST" action="/user/file/delete">
+    <input type="hidden" name="file_id" value="<%= file.id %>" />
+    <input type="hidden" name="folder_id" value="<%= folder_id %>" />
+    <button type="submit">Delete</button>
+  </form>
+  <!-- <a href="/user/delete">Delete</a> -->
 </div>

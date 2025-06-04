@@ -120,6 +120,14 @@ const changeFileName = async (file_id, newFileName) => {
   });
 };
 
+const deleteFile = async (file_id) => {
+  await prisma.file.delete({
+    where: {
+      id: file_id,
+    },
+  });
+};
+
 module.exports = {
   newUser,
   getUser: getUserByUsername,
@@ -132,4 +140,5 @@ module.exports = {
   getCurrentFiles,
   getFileDetails,
   changeFileName,
+  deleteFile,
 };

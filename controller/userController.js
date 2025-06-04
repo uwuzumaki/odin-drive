@@ -69,7 +69,7 @@ const renameGet = async (req, res) => {
 };
 
 const renamePost = async (req, res) => {
-  console.log(req.body);
+  //TODO rename the actual file itself that is stored in the filesystem
   const newFilename = req.body.filename;
   const folder = req.body.folder_id;
   const fileId = req.body.file_id;
@@ -78,7 +78,10 @@ const renamePost = async (req, res) => {
 };
 
 const deleteAsset = async (req, res) => {
-  console.log("456");
+  const fileId = req.body.file_id;
+  const folder = req.body.folder_id;
+  await db.deleteFile(fileId);
+  res.redirect(`/user/folder/${folder}`);
 };
 
 module.exports = {
