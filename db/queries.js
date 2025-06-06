@@ -120,7 +120,8 @@ const changeFileName = async (file_id, newFileName) => {
   });
 };
 
-const deleteFile = async (file_id) => {
+const deleteFile = async (id) => {
+  const file_id = typeof id == "string" ? parseInt(id) : id;
   await prisma.file.delete({
     where: {
       id: file_id,
@@ -131,6 +132,18 @@ const deleteFile = async (file_id) => {
 const deleteFolder = async (folder_id) => {
   await prisma.folder.delete({
     where: { id: folder_id },
+  });
+};
+
+const changeFolderName = async (id, newFolderName) => {
+  const folder_id = typeof id == "string" ? parseInt(id) : id;
+  await prisma.folder.update({
+    where: {
+      id: folder_id,
+    },
+    data: {
+      name: newFolderName,
+    },
   });
 };
 
@@ -148,4 +161,5 @@ module.exports = {
   changeFileName,
   deleteFile,
   deleteFolder,
+  changeFolderName,
 };

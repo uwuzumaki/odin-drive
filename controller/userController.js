@@ -78,6 +78,7 @@ const renamePost = async (req, res) => {
 };
 
 const deleteAsset = async (req, res) => {
+  //TODO delete the actual file in storage
   const fileId = req.body.file_id;
   const folder = req.body.folder_id;
   await db.deleteFile(fileId);
@@ -85,10 +86,28 @@ const deleteAsset = async (req, res) => {
 };
 
 const deleteFolder = async (req, res) => {
-  const folder_id = parseInt(req.params.folder_id);
+  //TODO delete all the associated files
+  const folder_id = req.params.folder_id;
   const parent = req.session.parentFolder.id;
   await db.deleteFolder(folder_id);
   res.redirect(`/user/folder/${parent}`);
+};
+
+const folderRenameGet = async (req, res) => {
+  const parent_folder = req.session.parentFolder;
+  const folder_id = req.params.folder_id;
+  const folder = await db.getOneFolder(folder_id);
+  console.log(folder, parent_folder);
+  res.render("folderRenameGet", { parent: parent_folder, folder: folder });
+};
+
+const folderRenamePost = async (req, res) => {
+  const folderName = req.body.folderName;
+  const folder_id = req.body.folder_id;
+  const parent_id = req.body.parent_id;
+  console.log(req.body);
+  await db.changeFolderName(folder_id, folderName);
+  res.redirect(`/user/folder/${parent_id}`);
 };
 
 module.exports = {
@@ -103,4 +122,6 @@ module.exports = {
   deleteAsset,
   renamePost,
   deleteFolder,
+  folderRenameGet,
+  folderRenamePost,
 };

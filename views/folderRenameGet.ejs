@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head") %>
+  <body>
+    <%- include("./partials/navbar") %>
+    <a href="/user/folder/<%= parent.id %>">Back</a>
+    <form method="POST" action="/user/folder/<%= folder.id %>/rename">
+      <label for="folderName">New Foldername</label>
+      <input type="text" name="folderName" id="folderName" />
+      <button type="submit">Rename!</button>
+      <input type="hidden" name="folder_id" value="<%= folder.id %>" />
+      <input type="hidden" name="parent_id" value="<%= parent.id %>" />
+    </form>
+    <%- include('./partials/footer') %>
+  </body>
+</html>
