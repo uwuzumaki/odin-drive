@@ -84,6 +84,13 @@ const deleteAsset = async (req, res) => {
   res.redirect(`/user/folder/${folder}`);
 };
 
+const deleteFolder = async (req, res) => {
+  const folder_id = parseInt(req.params.folder_id);
+  const parent = req.session.parentFolder.id;
+  await db.deleteFolder(folder_id);
+  res.redirect(`/user/folder/${parent}`);
+};
+
 module.exports = {
   userHome,
   uploadPost,
@@ -95,4 +102,5 @@ module.exports = {
   renameGet,
   deleteAsset,
   renamePost,
+  deleteFolder,
 };
