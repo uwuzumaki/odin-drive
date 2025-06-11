@@ -14,11 +14,22 @@ const userHome = async (req, res) => {
 };
 
 const uploadPost = async (req, res) => {
-  await db.newFile(
-    req.file.filename,
-    req.file.size,
-    req.session.parentFolder.id,
-  );
+  // await db.newFile(
+  //   req.file.filename,
+  //   req.file.size,
+  //   req.session.parentFolder.id,
+  // );
+  const file = req.file;
+  const fileBase64 = decode(file.buffer.toString("base64"));
+
+  const { data, error } = await supabase.storage
+    .from("files")
+    .upload(file.originalname, fileBase64, {
+      contentType: file.mimetype,
+      upsert: true,
+    });
+  const { data: file2 } = supabase.storage.from("file").getPublicUrl(data.path);
+  console.log(file2);
   res.redirect(`/user/folder/${req.session.parentFolder.id}`);
 };
 
