@@ -1,5 +1,7 @@
 const db = require("../db/queries");
 const byteSize = require("byte-size");
+const supabase = require("../supabase/supabase");
+const { decode } = require("base64-arraybuffer");
 
 const userHome = async (req, res) => {
   const user = req.user;

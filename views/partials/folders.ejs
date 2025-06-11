@@ -2,6 +2,7 @@
 <% folders.forEach(folder => { %>
 <div
   class="m-2 max-w-xs rounded-md border-2 border-emerald-400 bg-stone-100 p-2">
+  id: <%= folder.id %>
   <a href="/user/folder/<%= folder.id %>"><%= folder.name %></a>
   <a href="/user/folder/<%= folder.id %>/rename">Rename folder</a>
   <a href="/user/folder/<%= folder.id %>/delete">Delete Folder</a>
