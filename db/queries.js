@@ -88,7 +88,11 @@ const newFile = async (filename, size, folder_id) => {
       size,
       folder_id,
     },
+    select: {
+      id: true,
+    },
   });
+  return record;
 };
 
 const getCurrentFiles = async (folder_id) => {

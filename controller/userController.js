@@ -14,22 +14,20 @@ const userHome = async (req, res) => {
 };
 
 const uploadPost = async (req, res) => {
-  // await db.newFile(
-  //   req.file.filename,
-  //   req.file.size,
-  //   req.session.parentFolder.id,
-  // );
+  // Sends new file creation to DB which returns the ID of the file
+  const dbFile = await db.newFile(
+    req.file.originalname,
+    req.file.size,
+    req.session.parentFolder.id,
+  );
+
+  // Stores the file in a supabase bucket with its name being its db file id
   const file = req.file;
   const fileBase64 = decode(file.buffer.toString("base64"));
-
-  const { data, error } = await supabase.storage
-    .from("files")
-    .upload(file.originalname, fileBase64, {
-      contentType: file.mimetype,
-      upsert: true,
-    });
-  const { data: file2 } = supabase.storage.from("file").getPublicUrl(data.path);
-  console.log(file2);
+  await supabase.storage.from("files").upload(dbFile.id, fileBase64, {
+    contentType: file.mimetype,
+    upsert: true,
+  });
   res.redirect(`/user/folder/${req.session.parentFolder.id}`);
 };
 
@@ -83,6 +81,7 @@ const renameGet = async (req, res) => {
 
 const renamePost = async (req, res) => {
   //TODO rename the actual file itself that is stored in the filesystem
+  console.log(req.body);
   const newFilename = req.body.filename;
   const folder = req.body.folder_id;
   const fileId = req.body.file_id;
