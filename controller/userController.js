@@ -23,11 +23,7 @@ const uploadPost = async (req, res) => {
 
   // Stores the file in a supabase bucket with its name being its db file id
   const file = req.file;
-  const fileBase64 = decode(file.buffer.toString("base64"));
-  await supabase.storage.from("files").upload(dbFile.id, fileBase64, {
-    contentType: file.mimetype,
-    upsert: true,
-  });
+  await supabase.uploadFile(dbFile, file);
   res.redirect(`/user/folder/${req.session.parentFolder.id}`);
 };
 
@@ -80,8 +76,6 @@ const renameGet = async (req, res) => {
 };
 
 const renamePost = async (req, res) => {
-  //TODO rename the actual file itself that is stored in the filesystem
-  console.log(req.body);
   const newFilename = req.body.filename;
   const folder = req.body.folder_id;
   const fileId = req.body.file_id;
@@ -94,7 +88,7 @@ const deleteAsset = async (req, res) => {
   const fileId = req.body.file_id;
   const folder = req.body.folder_id;
   await db.deleteFile(fileId);
-  res.redirect(`/user/folder/${folder}`);
+  await res.redirect(`/user/folder/${folder}`);
 };
 
 const deleteFolder = async (req, res) => {
