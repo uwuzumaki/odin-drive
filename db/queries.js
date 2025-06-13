@@ -125,12 +125,34 @@ const changeFileName = async (file_id, newFileName) => {
 };
 
 const deleteFile = async (id) => {
-  const file_id = typeof id == "string" ? parseInt(id) : id;
+  const file_id = typeof id == "string" ? id : parseInt(id);
   await prisma.file.delete({
     where: {
       id: file_id,
     },
   });
+};
+
+const findChildrenFiles = async (id) => {
+  const folder_id = typeof id == "string" ? parseInt(id) : id;
+  const files = await prisma.folder.findUnique({
+    where: {
+      id: folder_id,
+    },
+    include: {
+      file: true,
+      child: {
+        include: {
+          file: true,
+        },
+      },
+    },
+  });
+  const allFiles = [
+    ...files.file,
+    ...files.child.flatMap((child) => child.file),
+  ];
+  return allFiles;
 };
 
 const deleteFolder = async (folder_id) => {
@@ -164,6 +186,7 @@ module.exports = {
   getFileDetails,
   changeFileName,
   deleteFile,
+  findChildrenFiles,
   deleteFolder,
   changeFolderName,
 };

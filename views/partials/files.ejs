@@ -1,6 +1,6 @@
 <% files.forEach(file => { %>
 <div class="m-2 max-w-xs rounded-md border-2 border-blue-400 bg-stone-100 p-2">
-  <a href="/user/folder/<%= folders[0].parent_id %>/<%= file.id %>/details"
+  <a href="/user/folder/<%= parentFolder.id %>/<%= file.id %>/details"
     ><%= file.name %></a
   >
 </div>

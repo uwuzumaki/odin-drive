@@ -1,7 +1,6 @@
 const db = require("../db/queries");
 const byteSize = require("byte-size");
 const supabase = require("../supabase/supabase");
-const { decode } = require("base64-arraybuffer");
 
 const userHome = async (req, res) => {
   const user = req.user;
@@ -10,7 +9,11 @@ const userHome = async (req, res) => {
   req.session.parentFolder = rootFolder;
   const currentFolders = await db.getCurrentFolders(user.id, rootFolder.id);
   const currentFiles = await db.getCurrentFiles(rootFolder.id);
-  res.render("user", { folders: currentFolders, files: currentFiles });
+  res.render("user", {
+    folders: currentFolders,
+    files: currentFiles,
+    parentFolder: rootFolder,
+  });
 };
 
 const uploadPost = async (req, res) => {
@@ -40,7 +43,11 @@ const selectFolder = async (req, res) => {
   req.session.parentFolder = parentFolder;
   const currentFolders = await db.getCurrentFolders(req.user.id, folder_id);
   const currentFiles = await db.getCurrentFiles(parentFolder.id);
-  res.render("user", { folders: currentFolders, files: currentFiles });
+  res.render("user", {
+    folders: currentFolders,
+    files: currentFiles,
+    parentFolder,
+  });
 };
 
 const backFolder = async (req, res) => {
@@ -84,18 +91,21 @@ const renamePost = async (req, res) => {
 };
 
 const deleteAsset = async (req, res) => {
-  //TODO delete the actual file in storage
   const fileId = req.body.file_id;
   const folder = req.body.folder_id;
+  console.log(typeof fileId);
   await db.deleteFile(fileId);
-  await res.redirect(`/user/folder/${folder}`);
+  await supabase.deleteFile(fileId);
+  res.redirect(`/user/folder/${folder}`);
 };
 
 const deleteFolder = async (req, res) => {
   //TODO delete all the associated files
   const folder_id = req.params.folder_id;
   const parent = req.session.parentFolder.id;
-  await db.deleteFolder(folder_id);
+  const files = await db.findChildrenFiles(folder_id);
+  console.log(files);
+  // await db.deleteFolder(folder_id);
   res.redirect(`/user/folder/${parent}`);
 };
 

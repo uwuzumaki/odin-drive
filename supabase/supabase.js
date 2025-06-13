@@ -16,4 +16,8 @@ const uploadFile = async (dbFile, reqFile) => {
   });
 };
 
-module.exports = { uploadFile };
+const deleteFile = async (fileID) => {
+  await supabase.storage.from("files").remove([`${fileID}`]);
+};
+
+module.exports = { uploadFile, deleteFile };
