@@ -155,7 +155,8 @@ const findChildrenFiles = async (id) => {
   return allFiles;
 };
 
-const deleteFolder = async (folder_id) => {
+const deleteFolder = async (id) => {
+  const folder_id = typeof id == "string" ? parseInt(id) : id;
   await prisma.folder.delete({
     where: { id: folder_id },
   });

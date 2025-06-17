@@ -105,7 +105,12 @@ const deleteFolder = async (req, res) => {
   const parent = req.session.parentFolder.id;
   const files = await db.findChildrenFiles(folder_id);
   console.log(files);
-  // await db.deleteFolder(folder_id);
+  await Promise.all(
+    files.map(async (file) => {
+      await supabase.deleteFile(file.id);
+    }),
+  );
+  await db.deleteFolder(folder_id);
   res.redirect(`/user/folder/${parent}`);
 };
 
