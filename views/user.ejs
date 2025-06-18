@@ -3,9 +3,16 @@
   <%- include("./partials/head.ejs") %>
   <body>
     <%- include("./partials/navbar") %>
-    <div>
-      <%- include("./partials/upload") %>
-      <a href="/user/newfolder">New folder</a>
+    <div class="flex justify-between">
+      <% if (parentFolder.root == false) { %>
+      <a class="mx-8" href="/user/back">&#12296;- Back</a>
+      <% } else { %>
+      <div></div>
+      <% } %>
+      <div class="flex">
+        <%- include("./partials/upload") %>
+        <a class="mx-4 text-blue-600" href="/user/newfolder">New folder</a>
+      </div>
     </div>
     <div class="container mx-auto flex justify-evenly">
       <!-- prettier-ignore -->
