@@ -74,7 +74,14 @@ const fileDetails = async (req, res) => {
 };
 
 const fileDownload = async (req, res) => {
-  console.log("123");
+  const file = await supabase.downloadFile(req.params.file_id);
+  const buffer = await file.arrayBuffer();
+  res.setHeader("Content-Type", file.type);
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename=${req.params.file_id}`,
+  );
+  res.send(Buffer.from(buffer));
 };
 
 const renameGet = async (req, res) => {
@@ -93,7 +100,6 @@ const renamePost = async (req, res) => {
 const deleteAsset = async (req, res) => {
   const fileId = req.body.file_id;
   const folder = req.body.folder_id;
-  console.log(typeof fileId);
   await db.deleteFile(fileId);
   await supabase.deleteFile(fileId);
   res.redirect(`/user/folder/${folder}`);
@@ -104,7 +110,6 @@ const deleteFolder = async (req, res) => {
   const folder_id = req.params.folder_id;
   const parent = req.session.parentFolder.id;
   const files = await db.findChildrenFiles(folder_id);
-  console.log(files);
   await Promise.all(
     files.map(async (file) => {
       await supabase.deleteFile(file.id);
@@ -118,7 +123,6 @@ const folderRenameGet = async (req, res) => {
   const parent_folder = req.session.parentFolder;
   const folder_id = req.params.folder_id;
   const folder = await db.getOneFolder(folder_id);
-  console.log(folder, parent_folder);
   res.render("folderRenameGet", { parent: parent_folder, folder: folder });
 };
 
@@ -126,7 +130,6 @@ const folderRenamePost = async (req, res) => {
   const folderName = req.body.folderName;
   const folder_id = req.body.folder_id;
   const parent_id = req.body.parent_id;
-  console.log(req.body);
   await db.changeFolderName(folder_id, folderName);
   res.redirect(`/user/folder/${parent_id}`);
 };

@@ -2,7 +2,7 @@
 <div>
   <%= file.name %> <%= file.uploadedAt %> <%= file.size.value %> <%=
   file.size.unit %> <% console.log(file.id); %>
-  <a href="/user/download">Download</a>
+  <a href="/user/<%= file.id %>/download">Download</a>
   <a href="/user/<%= file.id %>/rename">Rename</a>
   <form method="POST" action="/user/file/delete">
     <input type="hidden" name="file_id" value="<%= file.id %>" />
