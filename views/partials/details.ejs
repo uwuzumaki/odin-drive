@@ -1,4 +1,4 @@
-<a href="/user/folder/<%= folder_id %>">Back</a>
+<a href="/user/folder/<%= parentFolder.id %>">Back</a>
 <div>
   <%= file.name %> <%= file.uploadedAt %> <%= file.size.value %> <%=
   file.size.unit %> <% console.log(file.id); %>
@@ -6,7 +6,7 @@
   <a href="/user/<%= file.id %>/rename">Rename</a>
   <form method="POST" action="/user/file/delete">
     <input type="hidden" name="file_id" value="<%= file.id %>" />
-    <input type="hidden" name="folder_id" value="<%= folder_id %>" />
+    <input type="hidden" name="folder_id" value="<%= parentFolder.id %>" />
     <button type="submit">Delete</button>
   </form>
   <!-- <a href="/user/delete">Delete</a> -->
