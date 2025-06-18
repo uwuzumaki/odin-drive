@@ -1,4 +1,10 @@
 <form action="/user/upload" method="post" enctype="multipart/form-data">
-  <input type="file" name="file" id="file" />
-  <button type="submit">Upload</button>
+  <label class="cursor-pointer text-blue-600" for="file">Upload</label>
+  <input
+    class="hidden"
+    type="file"
+    name="file"
+    id="file"
+    onchange="this.form.submit()" />
+  <button class="hidden" type="submit">Upload</button>
 </form>
