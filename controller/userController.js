@@ -69,7 +69,7 @@ const fileDetails = async (req, res) => {
   res.render("user", {
     folders: null,
     file: file,
-    folder_id: req.params.folder_id,
+    parentFolder: { id: req.params.folder_id, root: false },
   });
 };
 
@@ -106,7 +106,6 @@ const deleteAsset = async (req, res) => {
 };
 
 const deleteFolder = async (req, res) => {
-  //TODO delete all the associated files
   const folder_id = req.params.folder_id;
   const parent = req.session.parentFolder.id;
   const files = await db.findChildrenFiles(folder_id);
