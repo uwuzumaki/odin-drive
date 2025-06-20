@@ -1,9 +1,56 @@
 <% folders.forEach(folder => { %>
 <div
-  class="m-2 max-w-xs rounded-md border-2 border-emerald-400 bg-stone-100 p-2">
-  id: <%= folder.id %>
-  <a href="/user/folder/<%= folder.id %>"><%= folder.name %></a>
-  <a href="/user/folder/<%= folder.id %>/rename">Rename folder</a>
-  <a href="/user/folder/<%= folder.id %>/delete">Delete Folder</a>
+  class="m-2 flex max-h-48 max-w-48 min-w-24 flex-col justify-between rounded-md border-2 border-emerald-400 bg-stone-100 p-2">
+  <a class="flex flex-grow-1 flex-col" href="/user/folder/<%= folder.id %>">
+    <div class="mx-8 my-4 flex items-center justify-center">
+      <svg
+        aria-label="<%= folder.name %>"
+        class="max-w-18"
+        viewBox="0 0 48 48"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="#d5cff1"
+        stroke="#d5cff1">
+        <title><%= folder.name %></title>
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+          <defs>
+            <style>
+              .a {
+                fill: none;
+                stroke: #34d399;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+              }
+            </style>
+          </defs>
+          <path
+            class="a"
+            d="M41.6783,13.0436H24.77c-1.9628-.1072-5.9311-4.2372-8.1881-4.2372H6.6806V8.8046A2.1762,2.1762,0,0,0,4.5,10.9763v7.3063h39V14.8652A1.8217,1.8217,0,0,0,41.6783,13.0436Z"></path>
+          <path
+            class="a"
+            d="M43.5,18.2826H4.5V37.0165a2.1762,2.1762,0,0,0,2.1735,2.1789H41.3194A2.1762,2.1762,0,0,0,43.5,37.0237V18.2826Z"></path>
+        </g>
+      </svg>
+    </div>
+    <div class="mx-2 max-h-[25%] truncate px-2" title="<%= folder.name %>">
+      <%= folder.name %>
+    </div>
+  </a>
+  <div class="flex justify-evenly">
+    <a
+      class="rounded-3xl border border-black px-2 py-1"
+      href="/user/folder/<%= folder.id %>/rename"
+      >Rename</a
+    >
+    <a
+      class="rounded-3xl border border-black px-2 py-1"
+      href="/user/folder/<%= folder.id %>/delete">
+      Delete
+    </a>
+  </div>
 </div>
 <% }) %>

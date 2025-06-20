@@ -14,7 +14,8 @@
         <a class="mx-4 text-blue-600" href="/user/newfolder">New folder</a>
       </div>
     </div>
-    <div class="container mx-auto flex justify-evenly">
+    <div
+      class="mx-auto grid max-w-[96rem] grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
       <!-- prettier-ignore -->
       <% if (folders) { %> 
         <%- include("./partials/folders.ejs") %>
