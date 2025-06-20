@@ -14,17 +14,15 @@
         <a class="mx-4 text-blue-600" href="/user/newfolder">New folder</a>
       </div>
     </div>
-    <div
-      class="mx-auto grid max-w-[96rem] grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+    <div>
       <!-- prettier-ignore -->
-      <% if (folders) { %> 
-        <%- include("./partials/folders.ejs") %>
-        <% if (files) { %>
-          <%- include("./partials/files.ejs") %>
-        <% } %>
-      <% } else { %>
-        <%- include("./partials/details.ejs") %>
-      <% } %>
+      <% if (folders) { %>
+      <div
+        class="mx-auto grid max-w-[96rem] grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+        <%- include("./partials/folders.ejs") %> <% if (files) { %> <%-
+        include("./partials/files.ejs") %> <% } %>
+      </div>
+      <% } else { %> <%- include("./partials/details.ejs") %> <% } %>
     </div>
     <%- include('./partials/footer.ejs') %>
   </body>
