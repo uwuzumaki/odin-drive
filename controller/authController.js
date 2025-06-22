@@ -30,10 +30,6 @@ const registerPost = async (req, res, next) => {
   }
 };
 
-const loginGet = (req, res) => {
-  res.render("loginGet");
-};
-
 const loginPost = passport.authenticate("local", {
   successRedirect: "/user",
   failureRedirect: "/login",
@@ -53,7 +49,6 @@ const logout = (req, res, next) => {
 module.exports = {
   index,
   registerGet,
-  loginGet,
   registerPost,
   loginPost,
   logout,
