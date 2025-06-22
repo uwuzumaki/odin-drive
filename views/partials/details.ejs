@@ -1,14 +1,33 @@
 <div class="container mx-auto mt-[15%] flex justify-center">
   <div class="grid grid-cols-6">
-    <div class="col-start-2 justify-self-end">Name</div>
-    <div><%= file.name %></div>
-    <div class="mx-2">Uploaded at</div>
-    <div><%= file.uploadedAt %></div>
-    <div class="mx-2">Size</div>
-    <div><%= file.size.value %> <%= file.size.unit %></div>
-    <a href="/user/<%= file.id %>/download">Download</a>
-    <a href="/user/<%= file.id %>/rename">Rename</a>
-    <form method="POST" action="/user/file/delete">
+    <div class="col-start-2 mx-2 justify-self-end text-xl font-semibold">
+      Name
+    </div>
+    <div class="col-span-2 mx-2 self-center"><%= file.name %></div>
+    <div class="col-start-2 mx-2 justify-self-end text-xl font-semibold">
+      Uploaded
+    </div>
+    <div class="col-span-2 mx-2 self-center"><%= file.uploadedAt %></div>
+    <div class="col-start-2 mx-2 justify-self-end text-xl font-semibold">
+      Size
+    </div>
+    <div class="mx-2 self-center">
+      <%= file.size.value %> <%= file.size.unit %>
+    </div>
+    <a
+      class="col-start-4 row-start-4 justify-self-center rounded-3xl border border-black px-2 py-1"
+      href="/user/<%= file.id %>/download"
+      >Download</a
+    >
+    <a
+      class="col-start-5 row-start-4 justify-self-center rounded-3xl border border-black px-2 py-1"
+      href="/user/<%= file.id %>/rename"
+      >Rename</a
+    >
+    <form
+      class="col-start-6 row-start-4 justify-self-center rounded-3xl border border-black px-2 py-1"
+      method="POST"
+      action="/user/file/delete">
       <input type="hidden" name="file_id" value="<%= file.id %>" />
       <input type="hidden" name="folder_id" value="<%= parentFolder.id %>" />
       <button class="cursor-pointer" type="submit">Delete</button>
