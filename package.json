@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx prisma generate && node app.js",
+    "start": "npx prisma migrate dev --name init && node app.js",
     "dev": "nodemon app.js",
     "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css --watch"
   },
