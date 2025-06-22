@@ -1,3 +1,4 @@
+const moment = require("moment");
 const { PrismaClient } = require("../generated/prisma");
 
 const prisma = new PrismaClient();
@@ -110,6 +111,8 @@ const getFileDetails = async (file_id) => {
       id: file_id,
     },
   });
+  const readDate = moment(file.uploadedAt);
+  file.uploadedAt = readDate.format("MMMM Do YYYY, h:mm:ss a");
   return file;
 };
 
