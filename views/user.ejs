@@ -8,11 +8,12 @@
       <a class="mx-8" href="/user/back">&#12296;- Back</a>
       <% } else { %>
       <div></div>
-      <% } %>
+      <% } %> <% if (folders) { %>
       <div class="flex">
         <%- include("./partials/upload") %>
         <a class="mx-4 text-blue-600" href="/user/newfolder">New folder</a>
       </div>
+      <% } %>
     </div>
     <div>
       <!-- prettier-ignore -->
