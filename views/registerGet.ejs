@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include("./partials/head.ejs") %>
-  <body>
-    <form method="POST" action="/register">
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" />
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" />
-      <label for="confirm-password">Confirm Password</label>
-      <input type="password" name="confirm-password" id="confirm-password" />
-      <button type="submit">Register!</button>
-    </form>
+  <body class="h-[80%]">
+    <%- include("./partials/navbar") %>
+    <div class="container mx-auto flex h-[100%] justify-center">
+      <div class="flex flex-col items-center justify-center">
+        <div class="rounded-2xl border border-black bg-gray-50 py-6">
+          <form
+            class="grid grid-cols-3 gap-y-6 pr-8 text-xl"
+            method="POST"
+            action="/register">
+            <label class="mr-2 justify-self-end" for="username">Username</label>
+            <input
+              class="col-span-2 mx-2 h-7 border-b-[1px] pt-4 pr-4 pb-2 outline-0 duration-300 focus:border-emerald-400 focus:outline-none"
+              type="text"
+              name="username"
+              id="username" />
+            <label class="mr-2 justify-self-end" for="password">Password</label>
+            <input
+              class="col-span-2 mx-2 h-7 border-b-[1px] pt-4 pr-8 pb-2 outline-0 duration-300 focus:border-emerald-400 focus:outline-none"
+              type="password"
+              name="password"
+              id="password" />
+            <label class="mr-2 ml-6 justify-self-end" for="confirm-password"
+              >Confirm Password</label
+            >
+            <input
+              class="col-span-2 mx-2 h-7 border-b-[1px] pt-4 pr-8 pb-2 outline-0 duration-300 focus:border-emerald-400 focus:outline-none"
+              type="password"
+              name="confirm-password"
+              id="confirm-password" />
+            <button
+              class="col-start-2 mt-4 mb-2 ml-8 cursor-pointer justify-self-center rounded-3xl border border-emerald-400 bg-emerald-300 px-4 py-1"
+              type="submit">
+              Register!
+            </button>
+          </form>
+          <div class="mt-4 flex items-center justify-center">
+            <a
+              class="rounded-3xl border border-slate-300 bg-slate-300 px-4 py-1"
+              href="/"
+              >Back</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
     <%- include ('./partials/footer.ejs') %>
   </body>
 </html>
