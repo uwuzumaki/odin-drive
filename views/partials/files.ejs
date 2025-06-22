@@ -1,6 +1,6 @@
 <% files.forEach(file => { %>
 <div
-  class="m-2 flex max-h-48 min-h-46 max-w-48 min-w-24 flex-col justify-between rounded-md border-2 border-blue-400 bg-stone-100 p-2">
+  class="m-2 flex max-h-54 min-h-46 max-w-48 min-w-24 flex-col justify-between rounded-md border-2 border-blue-400 bg-stone-100 p-2">
   <a
     class="flex flex-col justify-start"
     href="/user/folder/<%= parentFolder.id %>/<%= file.id %>/details">
@@ -50,7 +50,7 @@
         </g>
       </svg>
     </div>
-    <div class="mx-2 max-h-[25%] truncate" title="<%= file.name %>">
+    <div class="mx-2 max-h-[25%] truncate text-center" title="<%= file.name %>">
       <%= file.name %>
     </div>
   </a>
