@@ -518,6 +518,11 @@
       border-color: var(--color-blue-400);
     }
   }
+  .focus\:border-emerald-400 {
+    &:focus {
+      border-color: var(--color-emerald-400);
+    }
+  }
   .focus\:outline-none {
     &:focus {
       --tw-outline-style: none;
