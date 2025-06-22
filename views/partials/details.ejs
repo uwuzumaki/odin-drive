@@ -1,13 +1,17 @@
-<a href="/user/folder/<%= parentFolder.id %>">Back</a>
-<div>
-  <%= file.name %> <%= file.uploadedAt %> <%= file.size.value %> <%=
-  file.size.unit %> <% console.log(file.id); %>
-  <a href="/user/<%= file.id %>/download">Download</a>
-  <a href="/user/<%= file.id %>/rename">Rename</a>
-  <form method="POST" action="/user/file/delete">
-    <input type="hidden" name="file_id" value="<%= file.id %>" />
-    <input type="hidden" name="folder_id" value="<%= parentFolder.id %>" />
-    <button type="submit">Delete</button>
-  </form>
-  <!-- <a href="/user/delete">Delete</a> -->
+<div class="container mx-auto mt-[15%] flex justify-center">
+  <div class="grid grid-cols-6">
+    <div class="col-start-2 justify-self-end">Name</div>
+    <div><%= file.name %></div>
+    <div class="mx-2">Uploaded at</div>
+    <div><%= file.uploadedAt %></div>
+    <div class="mx-2">Size</div>
+    <div><%= file.size.value %> <%= file.size.unit %></div>
+    <a href="/user/<%= file.id %>/download">Download</a>
+    <a href="/user/<%= file.id %>/rename">Rename</a>
+    <form method="POST" action="/user/file/delete">
+      <input type="hidden" name="file_id" value="<%= file.id %>" />
+      <input type="hidden" name="folder_id" value="<%= parentFolder.id %>" />
+      <button class="cursor-pointer" type="submit">Delete</button>
+    </form>
+  </div>
 </div>
