@@ -17,3 +17,4 @@ There is currently no error handling.
 # ToDo
 
 Have to add error handling.
+Folder ID's should be UUID's but all the ID checking would also have to check for a string instead of an int.
